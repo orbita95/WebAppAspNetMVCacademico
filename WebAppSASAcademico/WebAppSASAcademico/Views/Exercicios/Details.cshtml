@@ -1,0 +1,58 @@
+﻿@model WebAppSASAcademico.Models.Exercicio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Exercicio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.enunciado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.enunciado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.respostaAluno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.respostaAluno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.respostaProfessor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.respostaProfessor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comentario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comentario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListaExercicios.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListaExercicios.descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdExercicio }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

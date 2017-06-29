@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebAppSASAcademico.Models.ListaExercicios>
+
+@{
+    ViewBag.Title = "ListaExercicios";
+}
+
+<h2>ListaExercicios</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+                
+        <th>
+            Descrição
+        </th>
+        <th>
+            Nome do Aluno
+        </th>
+        
+        <th>
+            Turma
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeAluno)
+        </td>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.IdTurma)
+        </td>
+        <td>
+            @Html.ActionLink("Listar Exercicios", "ExerciciosLista", new { id = item.identificadorListaOriginal, idAluno = item.idAluno, num = item.numeroListaTurma }) |
+            @Html.ActionLink("Salvar", "SalvarExerciciosLista", new { id = item.IdListaExercicio }) |
+            @*@Html.ActionLink("Assinar", "SalvarExerciciosLista", new { id = item.IdListaExercicio, alunoId = item.idAluno }) |*@
+        </td>
+    </tr>
+}
+
+</table>

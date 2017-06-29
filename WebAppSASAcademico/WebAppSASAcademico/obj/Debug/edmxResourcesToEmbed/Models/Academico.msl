@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AcademicoStoreContainer" CdmEntityContainer="AcademicoContainer">
+    <EntitySetMapping Name="Atividade">
+      <EntityTypeMapping TypeName="IsTypeOf(Academico.ListaExercicios)">
+        <MappingFragment StoreEntitySet="Atividade">
+          <ScalarProperty Name="numeroListaTurma" ColumnName="numeroListaTurma" />
+          <ScalarProperty Name="identificadorListaOriginal" ColumnName="identificadorListaOriginal" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="IdListaExercicio" ColumnName="IdListaExercicio" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="nomeAluno" ColumnName="nomeAluno" />
+          <ScalarProperty Name="idAluno" ColumnName="idAluno" />
+          <ScalarProperty Name="IdTurma" ColumnName="IdTurma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Turma">
+      <EntityTypeMapping TypeName="IsTypeOf(Academico.Turma)">
+        <MappingFragment StoreEntitySet="Turma">
+          <ScalarProperty Name="IdTurma" ColumnName="IdTurma" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="condicaoLimiteUm" ColumnName="condicaoLimiteUm" />
+          <ScalarProperty Name="condicaoLimiteDois" ColumnName="condicaoLimiteDois" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exercicio">
+      <EntityTypeMapping TypeName="IsTypeOf(Academico.Exercicio)">
+        <MappingFragment StoreEntitySet="Exercicio">
+          <ScalarProperty Name="identificador" ColumnName="identificador" />
+          <ScalarProperty Name="IdExercicio" ColumnName="IdExercicio" />
+          <ScalarProperty Name="enunciado" ColumnName="enunciado" />
+          <ScalarProperty Name="respostaAluno" ColumnName="respostaAluno" />
+          <ScalarProperty Name="respostaProfessor" ColumnName="respostaProfessor" />
+          <ScalarProperty Name="comentario" ColumnName="comentario" />
+          <ScalarProperty Name="IdListaExercicios" ColumnName="IdListaExercicios" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

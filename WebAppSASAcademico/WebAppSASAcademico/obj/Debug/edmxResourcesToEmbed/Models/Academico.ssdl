@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Academico.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Atividade">
+    <Key>
+      <PropertyRef Name="IdListaExercicio" />
+    </Key>
+    <Property Name="IdListaExercicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nota" Type="float" />
+    <Property Name="descricao" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nomeAluno" Type="nvarchar(max)" />
+    <Property Name="idAluno" Type="int" />
+    <Property Name="IdTurma" Type="int" Nullable="false" />
+    <Property Name="estado" Type="int" />
+    <Property Name="identificadorListaOriginal" Type="int" />
+    <Property Name="numeroListaTurma" Type="int" />
+  </EntityType>
+  <EntityType Name="Exercicio">
+    <Key>
+      <PropertyRef Name="IdExercicio" />
+    </Key>
+    <Property Name="IdExercicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="enunciado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="respostaAluno" Type="nvarchar(max)" />
+    <Property Name="respostaProfessor" Type="nvarchar(max)" />
+    <Property Name="comentario" Type="nvarchar(max)" />
+    <Property Name="IdListaExercicios" Type="int" Nullable="false" />
+    <Property Name="identificador" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Turma">
+    <Key>
+      <PropertyRef Name="IdTurma" />
+    </Key>
+    <Property Name="IdTurma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="condicaoLimiteUm" Type="int" Nullable="false" />
+    <Property Name="condicaoLimiteDois" Type="int" />
+  </EntityType>
+  <Association Name="FK_ExercicioListaExercicios">
+    <End Role="Atividade" Type="Self.Atividade" Multiplicity="1" />
+    <End Role="Exercicio" Type="Self.Exercicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Atividade">
+        <PropertyRef Name="IdListaExercicio" />
+      </Principal>
+      <Dependent Role="Exercicio">
+        <PropertyRef Name="IdListaExercicios" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TurmaAtividade">
+    <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+    <End Role="Atividade" Type="Self.Atividade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Turma">
+        <PropertyRef Name="IdTurma" />
+      </Principal>
+      <Dependent Role="Atividade">
+        <PropertyRef Name="IdTurma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AcademicoStoreContainer">
+    <EntitySet Name="Atividade" EntityType="Self.Atividade" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exercicio" EntityType="Self.Exercicio" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Turma" EntityType="Self.Turma" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ExercicioListaExercicios" Association="Self.FK_ExercicioListaExercicios">
+      <End Role="Atividade" EntitySet="Atividade" />
+      <End Role="Exercicio" EntitySet="Exercicio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurmaAtividade" Association="Self.FK_TurmaAtividade">
+      <End Role="Turma" EntitySet="Turma" />
+      <End Role="Atividade" EntitySet="Atividade" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

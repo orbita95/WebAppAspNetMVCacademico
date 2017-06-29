@@ -1,0 +1,42 @@
+﻿@model WebAppSASAcademico.Models.Turma
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Turma</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.condicaoLimiteUm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.condicaoLimiteUm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.condicaoLimiteDois)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.condicaoLimiteDois)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTurma }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

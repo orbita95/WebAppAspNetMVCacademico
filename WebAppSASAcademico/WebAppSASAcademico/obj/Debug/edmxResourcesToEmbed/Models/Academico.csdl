@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Academico" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="AcademicoContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Atividade" EntityType="Academico.ListaExercicios" />
+    <EntitySet Name="Turma" EntityType="Academico.Turma" />
+    <AssociationSet Name="TurmaAtividade" Association="Academico.TurmaAtividade">
+      <End Role="Turma" EntitySet="Turma" />
+      <End Role="Atividade" EntitySet="Atividade" />
+    </AssociationSet>
+    <EntitySet Name="Exercicio" EntityType="Academico.Exercicio" />
+    <AssociationSet Name="ExercicioListaExercicios" Association="Academico.ExercicioListaExercicios">
+      <End Role="Exercicio" EntitySet="Exercicio" />
+      <End Role="ListaExercicios" EntitySet="Atividade" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ListaExercicios">
+    <Key>
+      <PropertyRef Name="IdListaExercicio" />
+    </Key>
+    <Property Name="IdListaExercicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nota" Type="Double" Nullable="true" />
+    <Property Name="descricao" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="nomeAluno" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="idAluno" Type="Int32" Nullable="true" />
+    <NavigationProperty Name="Turma" Relationship="Academico.TurmaAtividade" FromRole="Atividade" ToRole="Turma" />
+    <Property Name="IdTurma" Type="Int32" Nullable="false" />
+    <Property Name="estado" Type="Int32" />
+    <Property Name="identificadorListaOriginal" Type="Int32" />
+    <Property Name="numeroListaTurma" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Turma">
+    <Key>
+      <PropertyRef Name="IdTurma" />
+    </Key>
+    <Property Name="IdTurma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="condicaoLimiteUm" Type="Int32" Nullable="false" />
+    <Property Name="condicaoLimiteDois" Type="Int32" Nullable="true" />
+  </EntityType>
+  <Association Name="TurmaAtividade">
+    <End Type="Academico.Turma" Role="Turma" Multiplicity="1" />
+    <End Type="Academico.ListaExercicios" Role="Atividade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Turma">
+        <PropertyRef Name="IdTurma" />
+      </Principal>
+      <Dependent Role="Atividade">
+        <PropertyRef Name="IdTurma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Exercicio">
+    <Key>
+      <PropertyRef Name="IdExercicio" />
+    </Key>
+    <Property Name="IdExercicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="enunciado" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="respostaAluno" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="respostaProfessor" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="comentario" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="ListaExercicios" Relationship="Academico.ExercicioListaExercicios" FromRole="Exercicio" ToRole="ListaExercicios" />
+    <Property Name="IdListaExercicios" Type="Int32" Nullable="false" />
+    <Property Name="identificador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="ExercicioListaExercicios">
+    <End Type="Academico.Exercicio" Role="Exercicio" Multiplicity="*" />
+    <End Type="Academico.ListaExercicios" Role="ListaExercicios" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ListaExercicios">
+        <PropertyRef Name="IdListaExercicio" />
+      </Principal>
+      <Dependent Role="Exercicio">
+        <PropertyRef Name="IdListaExercicios" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

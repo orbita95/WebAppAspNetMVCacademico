@@ -1,0 +1,50 @@
+﻿@model WebAppSASAcademico.Models.Alunos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Alunos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sexo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sexo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.data_nacimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.data_nacimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cpf)
+        </dd>
+            @*@Html.HiddenFor(model => model.id)*@
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Exercicios do Aluno", "ListaExercicios", new { data = Model.data_nacimento, id = Model.id }) |
+   
+</p>

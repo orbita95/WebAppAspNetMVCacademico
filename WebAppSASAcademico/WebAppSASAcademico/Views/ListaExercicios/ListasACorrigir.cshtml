@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebAppSASAcademico.Models.ListaExercicios>
+
+@{
+    ViewBag.Title = "ListasACorrigir";
+}
+
+<h2>ListasACorrigir</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nota)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nomeAluno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idAluno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.identificadorListaOriginal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numeroListaTurma)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Turma.descricao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nota)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeAluno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idAluno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.identificadorListaOriginal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroListaTurma)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Turma.descricao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdListaExercicio }) |
+            @Html.ActionLink("Exercicios da Lista", "ExerciciosListaParaCorrecao", new { id = item.IdListaExercicio }))
+            @*@Html.ActionLink("Details", "Details", new { id=item.IdListaExercicio }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdListaExercicio })*@
+        </td>
+    </tr>
+}
+
+</table>
