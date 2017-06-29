@@ -58,7 +58,7 @@ namespace WebAppSASAcademico.Controllers
         // GET: ListaExercicios/Create
         public ActionResult Create()
         {
-            ViewBag.IdTurma = new SelectList(db.Turma, "IdTurma", "descricao");
+            ViewBag.IdTurma = new SelectList(db.Atividade.Where(l => l.estado == null), "IdTurma", "descricao");
             return View();
         }
 
@@ -72,8 +72,21 @@ namespace WebAppSASAcademico.Controllers
             if (ModelState.IsValid)
             {
                 listaExercicios.identificadorListaOriginal = listaExercicios.IdListaExercicio;
+
+                //retorna o numero da ultima lista criada pelo professor
+                var listas = gce.getListasOriginaisByTurma(listaExercicios.IdTurma);//.Last().numeroListaTurma;
+                var numero = listas.Last().numeroListaTurma;
+                                
+                listaExercicios.numeroListaTurma = numero + 1;//identifica a lista
                 db.Atividade.Add(listaExercicios);
                 db.SaveChanges();
+
+                //identifica o campo identificadorListaOriginal com o id da lista criada
+                var ultimaLista = gce.getListasOriginaisByTurma(listaExercicios.IdTurma).Last();
+                listaExercicios.identificadorListaOriginal = ultimaLista.IdListaExercicio;
+                db.Entry(listaExercicios).State = EntityState.Modified;
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -102,10 +115,15 @@ namespace WebAppSASAcademico.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdListaExercicio,nota,descricao,nomeAluno,idAluno,IdTurma")] ListaExercicios listaExercicios)
+        public ActionResult Edit([Bind(Include = "IdListaExercicio,nota,descricao,nomeAluno,idAluno,IdTurma,identificadorListaOriginal,estado,numeroListaTurma")] ListaExercicios listaExercicios)
         {
             if (ModelState.IsValid)
             {
+                //var lista = db.Atividade.Find(listaExercicios.IdListaExercicio);
+                //listaExercicios.numeroListaTurma;listaExercicios.identificadorListaOriginal;listaExercicios.estado;
+                if (listaExercicios.nota != null)
+                    listaExercicios.estado = 2;//seta lista corrigida
+
                 db.Entry(listaExercicios).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -9,7 +9,13 @@ namespace WebAppSASAcademico.Controllers
     public class GerenciaConsultasExercicios
     {
 
-        
+        public List<ListaExercicios> getListasOriginaisByTurma(int idTurma)
+        {
+            var db = new AcademicoContainer();
+            var listas = db.Atividade.Where(l => l.IdTurma == idTurma && l.estado == null).ToList();
+            db.Dispose();
+            return listas;
+        }
 
         public List<ListaExercicios> getListaExerciciosByTurma(int condicao)
         {

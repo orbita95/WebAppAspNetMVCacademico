@@ -74,8 +74,11 @@ namespace WebAppSASAcademico.Controllers
                 
             }
 
+            if (listas.Count == 0)
+                return View(listasOriginais);
+            else
+                return View(listas);
 
-            return View(listas);
         }
         
         //recupera os exercicios de uma lista para o aluno
