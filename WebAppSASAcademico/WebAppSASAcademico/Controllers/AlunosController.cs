@@ -153,14 +153,14 @@ namespace WebAppSASAcademico.Controllers
                 db.Entry(listaEs).State = EntityState.Modified;
                 
                 db.SaveChanges();
-            }catch(Exception ex)
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
             {
                 Console.WriteLine( ex.Message);
                 return RedirectToAction("Index");
             }
             
-
-            return View();
         }
 
         protected override void Dispose(bool disposing)

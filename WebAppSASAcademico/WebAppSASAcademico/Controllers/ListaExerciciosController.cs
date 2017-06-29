@@ -57,7 +57,8 @@ namespace WebAppSASAcademico.Controllers
         // GET: ListaExercicios/Create
         public ActionResult Create()
         {
-            ViewBag.IdTurma = new SelectList(db.Atividade.Where(l => l.estado == null), "IdTurma", "descricao");
+            //ViewBag.IdTurma = new SelectList(db.Atividade.Where(l => l.estado == null), "IdTurma", "descricao");
+            ViewBag.IdTurma = new SelectList(db.Turma, "IdTurma", "descricao");
             return View();
         }
 
@@ -71,15 +72,24 @@ namespace WebAppSASAcademico.Controllers
             if (ModelState.IsValid)
             {
                 
-                listaExercicios.identificadorListaOriginal = listaExercicios.IdListaExercicio;
+                
 
                 //retorna o numero da ultima lista criada pelo professor
-                var listas = gce.getListasOriginaisByTurma(listaExercicios.IdTurma);//.Last().numeroListaTurma;
-                var numero = listas.Last().numeroListaTurma;
-                                
-                listaExercicios.numeroListaTurma = numero + 1;//identifica a lista
-                db.Atividade.Add(listaExercicios);
-                db.SaveChanges();
+                var listas = gce.getListasOriginaisByTurma(listaExercicios.IdTurma);
+                if(listas.Count > 0)
+                {
+                    var numero = listas.Last().numeroListaTurma;
+
+                    listaExercicios.numeroListaTurma = numero + 1;//identifica a lista
+                    db.Atividade.Add(listaExercicios);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    listaExercicios.numeroListaTurma = 1;//identifica a lista
+                    db.Atividade.Add(listaExercicios);
+                    db.SaveChanges();
+                }
 
                 //identifica o campo identificadorListaOriginal com o id da lista criada
                 var ultimaLista = gce.getListasOriginaisByTurma(listaExercicios.IdTurma).Last();
