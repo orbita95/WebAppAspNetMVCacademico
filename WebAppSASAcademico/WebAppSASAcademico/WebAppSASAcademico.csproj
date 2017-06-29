@@ -227,17 +227,14 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Exercicios\Create.cshtml" />
-    <Content Include="Views\Exercicios\Delete.cshtml" />
     <Content Include="Views\Exercicios\Details.cshtml" />
     <Content Include="Views\Exercicios\Edit.cshtml" />
     <Content Include="Views\Exercicios\Index.cshtml" />
     <Content Include="Views\ListaExercicios\Create.cshtml" />
-    <Content Include="Views\ListaExercicios\Delete.cshtml" />
     <Content Include="Views\ListaExercicios\Details.cshtml" />
     <Content Include="Views\ListaExercicios\Edit.cshtml" />
     <Content Include="Views\ListaExercicios\Index.cshtml" />
     <Content Include="Views\Turmas\Create.cshtml" />
-    <Content Include="Views\Turmas\Delete.cshtml" />
     <Content Include="Views\Turmas\Details.cshtml" />
     <Content Include="Views\Turmas\Edit.cshtml" />
     <Content Include="Views\Turmas\Index.cshtml" />

@@ -24,26 +24,37 @@ namespace WebAppSASAcademico.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection form)
         {
-            int id = Convert.ToInt32(form["cpf"]) ;
-            var a = mgr.GetAlunoByCpf(id);
+            try
+            {
+                int id = Convert.ToInt32(form["cpf"]);
+                if (id > 0)
+                {
+                    var a = mgr.GetAlunoByCpf(id);
 
-            TempData["Aluno"] = a;
+                    TempData["Aluno"] = a;
 
-            return View("Details", a);//RedirectToAction("Details", id);
+                    return View("Details", a);
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
+            
+            
         }
                 
         //retorna listas de exercicios de um aluno
         public ActionResult ListaExercicios(string data, int id)
         {
             var anoNascimento = Convert.ToDateTime(data).Year;//condição de formação das turmas
-            //var a = mgr.GetAlunoByCpf(id);
+            
 
             var a = TempData["Aluno"] as Alunos;
-            //a.cpf = "123124124";
-            //a.data_nacimento = "01-01-1989";
-            //a.id = 1;
-            //a.nome = "maria";
-            //a.sexo = 2;
+            
                         
             var listas = gce.getListaExerciciosByAluno(a.id);//listas assinadas com registro do aluno
             var listasOriginais = gce.getListaExerciciosByTurma(anoNascimento);//turmas são formadas com base na data de nascimento
@@ -89,9 +100,6 @@ namespace WebAppSASAcademico.Controllers
 
             TempData["ListaExercicioAtual"] = lista;
             
-            //ViewData.Add("aluno", idAluno);
-            //ViewData.Add("numListaTurma", num);
-
             return View(exercicios);
         }
 
@@ -116,15 +124,19 @@ namespace WebAppSASAcademico.Controllers
             
             if (ModelState.IsValid)
             {
-                var auxExercicio = db.Exercicio.Find(exercicio.IdExercicio);//recupera os dados do exercicio base do professor
+                if(exercicio.respostaAluno != null)
+                {
+                    var auxExercicio = db.Exercicio.Find(exercicio.IdExercicio);//recupera os dados do exercicio base do professor
 
-                var auxLista = TempData["ListaExercicioAtual"] as ListaExercicios;
+                    var auxLista = TempData["ListaExercicioAtual"] as ListaExercicios;
 
-                auxExercicio.respostaAluno = exercicio.respostaAluno;
-                auxExercicio.identificador = auxLista.IdListaExercicio.ToString() + auxLista.idAluno.ToString();
+                    auxExercicio.respostaAluno = exercicio.respostaAluno;
+                    auxExercicio.identificador = auxLista.IdListaExercicio.ToString() + auxLista.idAluno.ToString();
 
-                db.Exercicio.Add(auxExercicio);
-                db.SaveChanges();
+                    db.Exercicio.Add(auxExercicio);
+                    db.SaveChanges();
+                }
+                
                 return RedirectToAction("Index");
             }
             ViewBag.IdListaExercicios = new SelectList(db.Atividade, "IdListaExercicio", "descricao", exercicio.IdListaExercicios);
@@ -133,12 +145,20 @@ namespace WebAppSASAcademico.Controllers
 
         public ActionResult SalvarExerciciosLista(int id)
         {
-            var listaEs = db.Atividade.Find(id);
+            try
+            {
+                var listaEs = db.Atividade.Find(id);
+
+                listaEs.estado = 1;// estado 1 enviado para correção
+                db.Entry(listaEs).State = EntityState.Modified;
+                
+                db.SaveChanges();
+            }catch(Exception ex)
+            {
+                Console.WriteLine( ex.Message);
+                return RedirectToAction("Index");
+            }
             
-            listaEs.estado = 1;// estado 1 enviado para correção
-            db.Entry(listaEs).State = EntityState.Modified;
-            //db.Atividade.Add(listaEs);
-            db.SaveChanges();
 
             return View();
         }

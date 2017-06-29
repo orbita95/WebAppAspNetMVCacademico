@@ -28,7 +28,6 @@ namespace WebAppSASAcademico.Controllers
         {
             var exercicios = gce.getExerciciosListaParaCorrecao(id);//exercicios de uma lista 
             
-            //TempData["ListaExercicioAtual"] = lista;
             
             return View(exercicios);
         }
@@ -71,6 +70,7 @@ namespace WebAppSASAcademico.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 listaExercicios.identificadorListaOriginal = listaExercicios.IdListaExercicio;
 
                 //retorna o numero da ultima lista criada pelo professor
@@ -119,8 +119,7 @@ namespace WebAppSASAcademico.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var lista = db.Atividade.Find(listaExercicios.IdListaExercicio);
-                //listaExercicios.numeroListaTurma;listaExercicios.identificadorListaOriginal;listaExercicios.estado;
+                
                 if (listaExercicios.nota != null)
                     listaExercicios.estado = 2;//seta lista corrigida
 
@@ -132,31 +131,7 @@ namespace WebAppSASAcademico.Controllers
             return View(listaExercicios);
         }
 
-        // GET: ListaExercicios/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ListaExercicios listaExercicios = db.Atividade.Find(id);
-            if (listaExercicios == null)
-            {
-                return HttpNotFound();
-            }
-            return View(listaExercicios);
-        }
-
-        // POST: ListaExercicios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ListaExercicios listaExercicios = db.Atividade.Find(id);
-            db.Atividade.Remove(listaExercicios);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        
 
         protected override void Dispose(bool disposing)
         {

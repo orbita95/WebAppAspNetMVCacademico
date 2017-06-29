@@ -17,9 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.condicaoLimiteUm)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.condicaoLimiteDois)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -31,13 +31,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.condicaoLimiteUm)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.condicaoLimiteDois)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IdTurma }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdTurma }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdTurma })
+          
         </td>
     </tr>
 }

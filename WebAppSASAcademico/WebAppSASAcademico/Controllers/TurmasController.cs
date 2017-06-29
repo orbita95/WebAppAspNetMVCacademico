@@ -50,8 +50,14 @@ namespace WebAppSASAcademico.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Turma.Add(turma);
-                db.SaveChanges();
+                var limiteInferior = 1950;
+                var limiteSuperior = DateTime.Now.Year - 6;
+                if (turma.condicaoLimiteUm > limiteInferior && turma.condicaoLimiteUm < limiteSuperior)
+                {
+                    db.Turma.Add(turma);
+                    db.SaveChanges();
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -89,32 +95,7 @@ namespace WebAppSASAcademico.Controllers
             return View(turma);
         }
 
-        // GET: Turmas/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Turma turma = db.Turma.Find(id);
-            if (turma == null)
-            {
-                return HttpNotFound();
-            }
-            return View(turma);
-        }
-
-        // POST: Turmas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Turma turma = db.Turma.Find(id);
-            db.Turma.Remove(turma);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

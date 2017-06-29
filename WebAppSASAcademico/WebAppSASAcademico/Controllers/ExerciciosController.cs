@@ -52,8 +52,12 @@ namespace WebAppSASAcademico.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Exercicio.Add(exercicio);
-                db.SaveChanges();
+                if(exercicio.enunciado != null)
+                {
+                    db.Exercicio.Add(exercicio);
+                    db.SaveChanges();
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -94,32 +98,7 @@ namespace WebAppSASAcademico.Controllers
             return View(exercicio);
         }
 
-        // GET: Exercicios/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Exercicio exercicio = db.Exercicio.Find(id);
-            if (exercicio == null)
-            {
-                return HttpNotFound();
-            }
-            return View(exercicio);
-        }
-
-        // POST: Exercicios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Exercicio exercicio = db.Exercicio.Find(id);
-            db.Exercicio.Remove(exercicio);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
